@@ -84,9 +84,8 @@ final class PaymentPresenter: PaymentPresenting {
     private func message(for error: Error) -> String {
         if let balanceError = error as? BalanceError {
             switch balanceError {
-            case .insufficientFunds(let balance, let required):
-                let need = required - balance
-                return "Saldo tidak mencukupi. Anda membutuhkan tambahan \(CurrencyFormatter.format(need))."
+            case .insufficientFunds:
+                return "Saldo tidak mencukupi."
             }
         }
         if let paymentError = error as? PaymentError {

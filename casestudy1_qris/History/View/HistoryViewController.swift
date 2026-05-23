@@ -126,7 +126,7 @@ private final class HistoryCell: UITableViewCell {
         backgroundColor = .clear
         selectionStyle = .default
         let selectedBg = UIView()
-        selectedBg.backgroundColor = DesignSystem.Color.primary.withAlphaComponent(0.08)
+        selectedBg.backgroundColor = DesignSystem.Color.secondary.withAlphaComponent(0.08)
         selectedBackgroundView = selectedBg
         setup()
     }
@@ -223,8 +223,42 @@ private final class HistoryEmptyView: UIView {
         stack.alignment = .center
         stack.spacing = DesignSystem.Spacing.sm
         addSubview(stack)
-        stack.snp.makeConstraints { make in make.edges.equalToSuperview() }
+        stack.snp.makeConstraints { make in make.edges.equalToSuperview().inset(DesignSystem.Spacing.xxl)
+        }
         imageView.snp.makeConstraints { make in make.height.width.equalTo(48) }
     }
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 }
+
+#if DEBUG
+
+private final class PreviewHistoryInteractor: HistoryInteracting {
+    
+    let paymentRecords: [PaymentRecord] = [
+        PaymentRecord(id: "ID001", bank: "TEST", transactionId: "ID76213549", merchantName: "History Merchant 1", amount: 10_000, referenceId: "298347627384", timestamp: Date()),
+        PaymentRecord(id: "ID002", bank: "TEST", transactionId: "ID832497562", merchantName: "History Merchant 2", amount: 20_000, referenceId: "544389243654", timestamp: Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date()),
+        PaymentRecord(id: "ID003", bank: "TEST", transactionId: "ID23980404", merchantName: "History Merchant 3", amount: 30_000, referenceId: "3245678943287", timestamp: Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date()),
+    ]
+    
+    func loadHistory() -> [PaymentRecord] { paymentRecords }
+    func record(withId id: String) -> PaymentRecord? { nil }
+}
+
+private final class PreviewHistoryRouter: HistoryRouting {
+    func presentTransactionDetail(_ record: PaymentRecord, from view: UIViewController) {}
+}
+
+#Preview("Default") {
+    let view = HistoryViewController()
+    let interactor = PreviewHistoryInteractor()
+    let router = PreviewHistoryRouter()
+    let presenter = HistoryPresenter(view: view, interactor: interactor, router: router)
+    view.presenter = presenter
+    return UINavigationController(rootViewController: view)
+}
+
+#Preview("Empty") {
+    return HistoryEmptyView()
+}
+
+#endif

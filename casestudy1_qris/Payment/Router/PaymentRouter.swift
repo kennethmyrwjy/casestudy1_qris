@@ -12,8 +12,7 @@ final class PaymentRouter: PaymentRouting {
         let router = PaymentRouter()
         let interactor = PaymentInteractor(
             balanceRepository: AppDependencies.shared.balanceRepository,
-            transactionRepository: AppDependencies.shared.transactionRepository,
-            paymentGateway: AppDependencies.shared.paymentGateway
+            executionService: AppDependencies.shared.paymentExecutionService
         )
         let presenter = PaymentPresenter(
             view: view,

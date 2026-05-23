@@ -9,6 +9,7 @@ enum DesignSystem {
         static let primary = UIColor(red: 0.498, green: 0.827, blue: 0.769, alpha: 1.0)      // #7FD3C4 teal CTA
         static let primaryText = UIColor(red: 0.067, green: 0.275, blue: 0.247, alpha: 1.0)  // dark teal for "FM" badge etc.
         static let secondary = UIColor(red: 0.937, green: 0.502, blue: 0.243, alpha: 1.0)    // #EF803E orange chip
+        static let secondaryOpaque = UIColor(red: 0.937, green: 0.502, blue: 0.243, alpha: 0.18)
         static let textPrimary = UIColor.label
         static let textSecondary = UIColor.secondaryLabel
         static let textTertiary = UIColor.tertiaryLabel

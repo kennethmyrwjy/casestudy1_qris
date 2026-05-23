@@ -13,7 +13,7 @@ final class PrimaryButton: UIButton {
     private func configure(title: String) {
         var config = UIButton.Configuration.filled()
         config.title = title
-        config.baseBackgroundColor = DesignSystem.Color.primary
+        config.baseBackgroundColor = DesignSystem.Color.secondary
         config.baseForegroundColor = .black
         config.cornerStyle = .capsule
         config.contentInsets = NSDirectionalEdgeInsets(top: 16, leading: 24, bottom: 16, trailing: 24)
@@ -30,4 +30,8 @@ final class PrimaryButton: UIButton {
         isEnabled = enabled
         alpha = enabled ? 1.0 : 0.5
     }
+}
+
+#Preview {
+    PrimaryButton(title: "Test")
 }

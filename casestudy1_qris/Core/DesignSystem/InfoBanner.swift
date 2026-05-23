@@ -17,14 +17,14 @@ final class InfoBanner: UIView {
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
     private func configure(message: String) {
-        backgroundColor = DesignSystem.Color.primary.withAlphaComponent(0.14)
+        backgroundColor = DesignSystem.Color.secondaryOpaque
         layer.cornerRadius = 10
 
         iconView.image = UIImage(
             systemName: "info.circle.fill",
             withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .regular)
         )
-        iconView.tintColor = DesignSystem.Color.primaryText
+        iconView.tintColor = DesignSystem.Color.secondary
         iconView.contentMode = .scaleAspectFit
         iconView.setContentHuggingPriority(.required, for: .horizontal)
 
@@ -39,7 +39,8 @@ final class InfoBanner: UIView {
 
         iconView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(DesignSystem.Spacing.sm)
-            make.top.equalToSuperview().offset(DesignSystem.Spacing.sm)
+//            make.top.equalToSuperview().offset(DesignSystem.Spacing.sm)
+            make.centerY.equalToSuperview()
             make.width.equalTo(20)
             make.height.equalTo(20)
         }
@@ -54,4 +55,12 @@ final class InfoBanner: UIView {
         accessibilityLabel = message
         accessibilityTraits.insert(.staticText)
     }
+}
+
+#Preview("Normal") {
+    InfoBanner(message: "Test")
+}
+
+#Preview("Long") {
+    InfoBanner(message: "This is a test message to see the info banner with a longer message that forces it to multiple line.")
 }

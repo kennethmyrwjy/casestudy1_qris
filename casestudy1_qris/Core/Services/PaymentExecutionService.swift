@@ -32,7 +32,7 @@ final class DefaultPaymentExecutionService: PaymentExecutionService {
     func execute(_ transaction: QRISTransaction) async -> Result<PaymentReceipt, Error> {
         // check balance is enough
         guard balanceRepository.currentBalance() >= transaction.amount else {
-            return .failure(BalanceError.insufficientFunds(balance: balanceRepository.currentBalance(), required: transaction.amount))
+            return .failure(BalanceError.insufficientFunds)
         }
         
         do {

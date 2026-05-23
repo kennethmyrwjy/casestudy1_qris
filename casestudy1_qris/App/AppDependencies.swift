@@ -10,6 +10,7 @@ final class AppDependencies {
     private(set) var balanceRepository: BalanceRepository!
     private(set) var transactionRepository: TransactionRepository!
     private(set) var paymentGateway: PaymentGateway!
+    private(set) var paymentExecutionService: PaymentExecutionService!
     private(set) var qrParser: QRParser!
     private(set) var userRepository: UserRepository!
 
@@ -35,6 +36,7 @@ final class AppDependencies {
             accountNumber: "0674646111"
         ))
         paymentGateway = AlamofirePaymentGateway()
+        paymentExecutionService = DefaultPaymentExecutionService(balanceRepository: balanceRepository, transactionRepository: transactionRepository, gateway: paymentGateway)
         qrParser = DefaultQRParser()
     }
 }

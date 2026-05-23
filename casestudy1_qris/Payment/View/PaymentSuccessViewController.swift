@@ -104,17 +104,17 @@ final class PaymentSuccessViewController: UIViewController {
     }
 
     private func setupViews() {
-        illustrationView.backgroundColor = UIColor(red: 0.83, green: 0.96, blue: 0.94, alpha: 1.0)
+        illustrationView.backgroundColor = DesignSystem.Color.secondaryOpaque
         illustrationView.layer.cornerRadius = DesignSystem.Radius.card
 
         illustrationIcon.image = UIImage(
             systemName: "qrcode",
             withConfiguration: UIImage.SymbolConfiguration(pointSize: 56, weight: .regular)
         )
-        illustrationIcon.tintColor = DesignSystem.Color.primaryText
+        illustrationIcon.tintColor = DesignSystem.Color.secondary
         illustrationIcon.contentMode = .scaleAspectFit
 
-        checkmarkBadge.backgroundColor = UIColor(red: 0.14, green: 0.55, blue: 0.46, alpha: 1.0)
+        checkmarkBadge.backgroundColor = DesignSystem.Color.secondary
         checkmarkBadge.layer.cornerRadius = 18
         let check = UIImageView(image: UIImage(systemName: "checkmark", withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .bold)))
         check.tintColor = .white
@@ -181,7 +181,6 @@ final class PaymentSuccessViewController: UIViewController {
         contentView.addSubview(titleLabel)
         contentView.addSubview(amountLabel)
         contentView.addSubview(metaLabel)
-        contentView.addSubview(actionsStack)
         contentView.addSubview(receiptHeader)
         contentView.addSubview(receiverCard)
         receiverCard.addSubview(receiverNameLabel)
@@ -233,12 +232,8 @@ final class PaymentSuccessViewController: UIViewController {
             make.top.equalTo(amountLabel.snp.bottom).offset(DesignSystem.Spacing.xs)
             make.leading.trailing.equalToSuperview().inset(DesignSystem.Spacing.lg)
         }
-        actionsStack.snp.makeConstraints { make in
-            make.top.equalTo(metaLabel.snp.bottom).offset(DesignSystem.Spacing.md)
-            make.centerX.equalToSuperview()
-        }
         receiptHeader.snp.makeConstraints { make in
-            make.top.equalTo(actionsStack.snp.bottom).offset(DesignSystem.Spacing.lg)
+            make.top.equalTo(metaLabel.snp.bottom).offset(DesignSystem.Spacing.lg)
             make.leading.trailing.equalToSuperview().inset(DesignSystem.Spacing.lg)
         }
         receiverCard.snp.makeConstraints { make in
@@ -357,3 +352,21 @@ private extension String {
         return lower.split(separator: " ").map { $0.prefix(1).uppercased() + $0.dropFirst() }.joined(separator: " ")
     }
 }
+
+#if DEBUG
+
+#Preview("New Payment") {
+    let paymentSuccessContext = PaymentSuccessContext(
+        from: QRISTransaction(bank: "NEW", transactionId: "NEW987654321", merchantName: "New Merchant", amount: 9999999), receipt: PaymentReceipt(referenceId: "265985692983472", approvedAt: Date()), userProfile: UserProfile(fullName: "New Account Owner", accountType: "Tester New", accountNumber: "1234567890")
+    )
+    let vc = PaymentSuccessViewController(context: paymentSuccessContext, onReturnHome: { })
+    return UINavigationController(rootViewController: vc)
+}
+
+#Preview("History Payment") {
+    let paymentSuccessContext = PaymentSuccessContext(from: PaymentRecord(bank: "HISTORY", transactionId: "HIST123456789", merchantName: "History Preview Merchant", amount: 8888888, referenceId: "019283475687324", timestamp: Date()), userProfile: UserProfile(fullName: "History Account Owner", accountType: "Tester History", accountNumber: "3487532909"))
+    let vc = PaymentSuccessViewController(context: paymentSuccessContext, onReturnHome: {})
+    return UINavigationController(rootViewController: vc)
+}
+
+#endif

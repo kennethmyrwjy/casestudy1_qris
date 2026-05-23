@@ -249,3 +249,35 @@ final class SectionHeaderLabel: UILabel {
     }
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 }
+
+#if DEBUG
+private final class PreviewPaymentInteractor: PaymentInteracting {
+    var balance = 1_999_999
+    var paymentResult: Result<PaymentReceipt, any Error> = .success(PaymentReceipt(referenceId: "981273465928734", approvedAt: Date()))
+    
+    func currentBalance() -> Int { balance }
+    
+    func executePayment(_ transaction: QRISTransaction) async -> Result<PaymentReceipt, any Error> { paymentResult }
+}
+
+private final class PreviewPaymentRouter: PaymentRouting {
+    func presentSuccess(transaction: QRISTransaction, receipt: PaymentReceipt, from view: UIViewController) {}
+    func returnToHome(from view: UIViewController) {}
+}
+
+private final class PreviewUserRepository: UserRepository {
+    let user = UserProfile(fullName: "Confirmation Account", accountType: "Tester Confirmation", accountNumber: "2238842561")
+    func currentUser() -> UserProfile { user }
+}
+
+#Preview("Default") {
+    let view = PaymentConfirmationViewController()
+    let interactor = PreviewPaymentInteractor()
+    let router = PreviewPaymentRouter()
+    let userRepository = PreviewUserRepository()
+    let presenter = PaymentPresenter(view: view, interactor: interactor, router: router, transaction: QRISTransaction(bank: "CONFIRM", transactionId: "812374659823569", merchantName: "Confirmation Merchant", amount: 1_999_888), userRepository: PreviewUserRepository())
+    view.presenter = presenter
+    return UINavigationController(rootViewController: view)
+}
+
+#endif

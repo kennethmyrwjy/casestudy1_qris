@@ -1,7 +1,7 @@
 import Foundation
 
 enum BalanceError: Error, Equatable {
-    case insufficientFunds(balance: Int, required: Int)
+    case insufficientFunds
 }
 
 protocol BalanceRepository {
@@ -39,7 +39,7 @@ final class DefaultBalanceRepository: BalanceRepository {
     func deduct(_ amount: Int) throws -> Int {
         try queue.sync {
             guard cached >= amount else {
-                throw BalanceError.insufficientFunds(balance: cached, required: amount)
+                throw BalanceError.insufficientFunds
             }
             cached -= amount
             store.setInt(cached, for: key)
