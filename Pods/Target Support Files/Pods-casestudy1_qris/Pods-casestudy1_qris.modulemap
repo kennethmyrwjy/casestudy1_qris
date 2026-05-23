@@ -1,0 +1,6 @@
+framework module Pods_casestudy1_qris {
+  umbrella header "Pods-casestudy1_qris-umbrella.h"
+
+  export *
+  module * { export * }
+}
