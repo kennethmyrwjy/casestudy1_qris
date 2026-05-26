@@ -1,8 +1,5 @@
 import Foundation
 
-/// Lightweight composition root. Holds the singletons that VIPER modules wire into
-/// their Interactors at construction time. Kept deliberately tiny — production
-/// projects would graduate this to a real DI container.
 final class AppDependencies {
 
     static let shared = AppDependencies()
@@ -14,7 +11,7 @@ final class AppDependencies {
     private(set) var qrParser: QRParser!
     private(set) var userRepository: UserRepository!
 
-    private init() {}
+    private init() {} // to avoid force unwrap init here
 
     func bootstrap() {
         // separate namespace to avoid colliding/overlap, same pattern apple uses
@@ -36,6 +33,7 @@ final class AppDependencies {
             accountNumber: "0674646111"
         ))
         paymentGateway = AlamofirePaymentGateway()
+        // af for quick code & less boilerplate, urlession for more security
         paymentExecutionService = DefaultPaymentExecutionService(balanceRepository: balanceRepository, transactionRepository: transactionRepository, gateway: paymentGateway)
         qrParser = DefaultQRParser()
     }

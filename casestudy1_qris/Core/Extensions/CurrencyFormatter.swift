@@ -1,7 +1,5 @@
 import Foundation
 
-/// Indonesian Rupiah formatting matching the reference UI: "Rp150.000" (no space,
-/// dot thousands separator). Wraps NumberFormatter so we don't allocate on every call.
 enum CurrencyFormatter {
 
     private static let formatter: NumberFormatter = {

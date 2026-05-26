@@ -1,6 +1,5 @@
 import UIKit
 
-/// The pill-shaped teal CTA used across the reference app (Lanjut, Bayar Sekarang).
 final class PrimaryButton: UIButton {
 
     init(title: String) {

@@ -1,9 +1,6 @@
 import UIKit
 import SnapKit
 
-/// A soft-tinted reminder strip — info icon on the left, body text on the right.
-/// Used on PaymentConfirmation to nudge users to double-check merchant + amount
-/// before tapping Bayar Sekarang.
 final class InfoBanner: UIView {
 
     private let iconView = UIImageView()

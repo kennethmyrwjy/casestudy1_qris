@@ -15,10 +15,6 @@ protocol PaymentGateway {
     func submit(_ transaction: QRISTransaction) async throws -> PaymentReceipt
 }
 
-/// Mock payment service that goes through Alamofire's request lifecycle so we keep
-/// the "real REST stack" talking point honest. The request is fired against a
-/// non-existent host and intentionally short-circuited — but the whole interceptor /
-/// session machinery is real, swappable, and testable.
 final class AlamofirePaymentGateway: PaymentGateway {
 
     private let session: Session

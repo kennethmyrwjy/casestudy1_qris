@@ -1,10 +1,6 @@
 import Foundation
 import Security
 
-/// Minimal Keychain wrapper for sensitive values (the user's balance).
-/// Production code would namespace by user identity and use access groups; for a
-/// single-user demo this is enough to make the "balance never leaves the secure
-/// enclave-backed keychain" talking point honest.
 struct KeychainStore {
 
     let service: String

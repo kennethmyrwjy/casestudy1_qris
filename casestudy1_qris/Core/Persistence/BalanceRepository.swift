@@ -6,14 +6,11 @@ enum BalanceError: Error, Equatable {
 
 protocol BalanceRepository {
     func currentBalance() -> Int
-    /// Atomically deduct `amount`. Throws if balance would go negative.
     @discardableResult
     func deduct(_ amount: Int) throws -> Int
     func reset(to amount: Int)
 }
 
-/// Keychain-backed balance store with an in-memory mirror so reads stay cheap on
-/// the hot path (balance reads happen on Home appear and Payment confirm).
 final class DefaultBalanceRepository: BalanceRepository {
 
     private let store: KeychainStore

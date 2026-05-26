@@ -1,8 +1,5 @@
 import UIKit
 
-/// Centralized design tokens that mirror the reference banking app:
-/// teal/mint primary CTA, orange secondary chip, soft outlined cards, system fonts.
-/// All colors are WCAG AA compliant against white backgrounds at 16pt+ body text.
 enum DesignSystem {
 
     enum Color {

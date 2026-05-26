@@ -1,6 +1,5 @@
 import UIKit
 
-/// Soft outlined rounded container — the recurring card pattern in the reference UI.
 final class CardView: UIView {
     
     enum Style {

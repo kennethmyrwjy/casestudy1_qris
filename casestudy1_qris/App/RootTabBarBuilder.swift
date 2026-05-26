@@ -1,8 +1,6 @@
 import UIKit
 
-/// Builds the root view controller. We use a single navigation controller rooted at
-/// Home — the design moved away from a bottom tab bar in favor of a floating QRIS
-/// action on Home and an inline Riwayat entry, matching the reference banking app.
+// name not consistent due to pivot
 enum RootTabBarBuilder {
 
     static func make() -> UIViewController {

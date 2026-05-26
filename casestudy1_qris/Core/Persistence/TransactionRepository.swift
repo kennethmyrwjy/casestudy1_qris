@@ -6,9 +6,6 @@ protocol TransactionRepository {
     func clear()
 }
 
-/// UserDefaults-backed JSON store. History data is non-sensitive (merchant name,
-/// amount, timestamp) so Keychain would be overkill; this also lets the demo
-/// reset cleanly by deleting the app.
 final class DefaultTransactionRepository: TransactionRepository {
 
     private let defaults: UserDefaults

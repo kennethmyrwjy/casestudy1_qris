@@ -10,8 +10,6 @@ enum QRParseError: Error, Equatable {
     case nonPositiveAmount
 }
 
-/// Whitelist of supported source banks. Anything else is rejected so the recruiter can
-/// see the "unknown bank" edge case demoed clearly.
 enum SupportedBank: String, CaseIterable {
     case bni = "BNI"
     case bca = "BCA"
@@ -24,8 +22,6 @@ protocol QRParser {
     func parse(_ raw: String) -> Result<QRISTransaction, QRParseError>
 }
 
-/// Parses `BANK.TXID.MERCHANT.AMOUNT` format. Pure function — no Foundation regex,
-/// no allocation beyond the split, runnable off the main thread.
 struct DefaultQRParser: QRParser {
 
     func parse(_ raw: String) -> Result<QRISTransaction, QRParseError> {

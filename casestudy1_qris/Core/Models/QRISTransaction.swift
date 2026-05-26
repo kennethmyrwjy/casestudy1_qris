@@ -1,6 +1,5 @@
 import Foundation
 
-/// Decoded contents of a QRIS code in the format `BANK.TXID.MERCHANT.AMOUNT`.
 struct QRISTransaction: Equatable, Hashable {
     let bank: String
     let transactionId: String
@@ -8,7 +7,6 @@ struct QRISTransaction: Equatable, Hashable {
     let amount: Int
 }
 
-/// A completed payment, persisted to the transaction history.
 struct PaymentRecord: Codable, Equatable, Hashable, Identifiable {
     let id: String
     let bank: String
