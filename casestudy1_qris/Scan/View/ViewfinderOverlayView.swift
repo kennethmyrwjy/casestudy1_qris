@@ -3,17 +3,10 @@ import OSLog
 
 private let viewfinderLog = Logger(subsystem: "com.example.casestudy1-qris", category: "Viewfinder")
 
-/// Draws the dimmed surround + centered cutout reticle with white corner brackets,
-/// plus a teal scan line that sweeps top→bottom inside the reticle. The sweep is
-/// driven by CAAnimation on the render server, so it doesn't touch the main thread
-/// even at 60fps. Honors Reduce Motion.
 final class ViewfinderOverlayView: UIView {
 
     private let scanLine = CAGradientLayer()
     private let scanLineKey = "scanline-sweep"
-    /// Tracks whether sweep should currently be running. The single source of truth —
-    /// `scanLine.animation(forKey:)` is unreliable across navigation transitions
-    /// because UIKit can silently strip CAAnimations when re-attaching layers.
     private var shouldSweep = false
 
     override init(frame: CGRect) {
@@ -102,8 +95,6 @@ final class ViewfinderOverlayView: UIView {
         scanLine.removeAnimation(forKey: scanLineKey)
     }
 
-    /// Idempotent: removes any existing animation and re-adds a fresh one. Safe to
-    /// call from layoutSubviews, didMoveToWindow, or app-foreground notifications.
     private func attachSweepAnimation() {
         guard window != nil, bounds.width > 0 else {
             viewfinderLog.info("attachSweepAnimation skipped — no window or zero bounds")
@@ -166,7 +157,6 @@ final class ViewfinderOverlayView: UIView {
     }
 }
 
-/// "QRIS supported" badge in the top notch area (mirroring the reference screenshot).
 final class QRISBadgeView: UIView {
 
     private let logoView = UIImageView()

@@ -49,9 +49,6 @@ final class DefaultUserRepository: UserRepository {
         cached
     }
     
-    /// Persists a profile to its split storage. Static so we can call it from
-    /// `init` without referring to `self` before all properties are set.
-    ///  need to explain further
     private static func persist(
         _ profile: UserProfile,
         defaults: UserDefaults,

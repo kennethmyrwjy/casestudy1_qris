@@ -99,8 +99,6 @@ final class PaymentPresenter: PaymentPresenting {
 }
 
 private extension String {
-    /// Reference UI shows merchant names in title-case ("Family Mart") even when the
-    /// QR encodes them as ALL CAPS. Cheap normalization.
     var capitalizedDisplay: String {
         let lower = lowercased()
         return lower.split(separator: " ").map { $0.prefix(1).uppercased() + $0.dropFirst() }.joined(separator: " ")

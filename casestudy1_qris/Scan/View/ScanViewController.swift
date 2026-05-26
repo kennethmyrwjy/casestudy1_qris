@@ -12,9 +12,6 @@ final class ScanViewController: UIViewController, ScanViewControlling {
     private let captureSession = AVCaptureSession()
     private let metadataQueue = DispatchQueue(label: "qris.scan.metadata", qos: .userInitiated)
     private lazy var previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-    /// Strong reference is mandatory: AVCaptureMetadataOutput holds the delegate
-    /// weakly, so without this the bridge deallocates immediately and no QR codes
-    /// ever reach the presenter.
     private var metadataDelegateBridge: MetadataDelegateBridge?
     private var didConfigureSession = false
 
@@ -298,8 +295,6 @@ private extension ScanError {
     func localizedMessage() -> String { userMessage }
 }
 
-/// AVCaptureMetadataOutputObjectsDelegate must be NSObject; isolating it in a tiny
-/// bridge keeps the VIPER View Controller free of @objc machinery.
 private final class MetadataDelegateBridge: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 
     private let onCode: (String) -> Void

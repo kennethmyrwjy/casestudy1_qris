@@ -1,9 +1,6 @@
 import UIKit
 import SnapKit
 
-/// Full-width rectangular Riwayat entry: icon on tinted bubble, title, subtitle,
-/// chevron. Replaces the previous side-by-side tile layout now that Scan moved to
-/// a floating QRIS pill at the bottom of Home.
 final class HistoryRowButton: UIControl {
 
     private let iconBackground = UIView()
@@ -104,10 +101,6 @@ final class HistoryRowButton: UIControl {
     }
 }
 
-/// Floating QRIS button anchored at the bottom-center of Home. Adapts to light/dark:
-/// black pill + white logo in light mode, white pill + black logo in dark mode.
-/// A subtle highlight gradient + drop shadow gives it a 3D "bulge" appearance so
-/// it reads as a tappable button floating above the content.
 final class FloatingQRISButton: UIControl {
 
     private let logoView = UIImageView()

@@ -2,10 +2,7 @@ import UIKit
 import SnapKit
 
 enum PaymentSuccessMode {
-    /// Fresh payment — big celebratory framing, success haptic, return-to-home CTA.
     case freshPayment
-    /// Viewing a past transaction from Riwayat — no haptic, standard back button,
-    /// no "berhasil" celebration in the title.
     case historyDetail
 }
 
